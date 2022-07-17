@@ -57,8 +57,6 @@ class Cycling extends Workout {
   }
 }
 
-// const run1 = new Running([39, -12], 5.2, 24, 178);
-// const cycling1 = new Cycling([39, -12], 27, 95, 523);
 
 //////////////////////////////////////////////////////////////////////
 // APPLICATION ARCHITECTURE
@@ -210,7 +208,6 @@ class App {
     const type = inputType.value;
     const distance = +inputDistance.value;
     const duration = +inputDuration.value;
-    //important to uncerstand why it is creating inside the location that i click
 
     let workout;
     const { lat, lng } = this.#mapEvent.latlng;
@@ -241,7 +238,6 @@ class App {
     }
 
     // add new object to workout array
-
     this.#workouts.push(workout);
 
     this.#dataWorkouts.push({ latlng: this.#mapEvent.latlng });
@@ -265,7 +261,6 @@ class App {
   _renderWorkoutMarker(workout) {
     const marker = this.addMarker(workout, workout.coords);
     this.#markerArray.push(marker);
-    // this.#map.clearLayers()
   }
   _renderWorkout(workout) {
     iconRemoveAll.classList.remove('hidden');
@@ -452,19 +447,6 @@ class App {
 
       this.removeHideIcon(workoutEl);
       workoutEl.classList.remove('edit-color');
-
-      // if (this.#updatedMarkerEdit !== undefined) {
-      //   const markerCoords = this.#updatedMarkerEdit
-      //     .map(markerCoords => {
-      //       return [markerCoords._latlng.lat, markerCoords._latlng.lng];
-      //     })
-      //     .flat(1);
-
-      //   const workout = this.findWorkout(workoutEl);
-      //   workout.coords = markerCoords;
-      //   console.log(this.#workouts);
-      //   console.log(this.#dataWorkouts);
-      // }
     }
 
     this.#workoutedit = undefined;
@@ -484,10 +466,9 @@ class App {
         document
           .querySelector('.approve-edit-message')
           .classList.remove('show-message-edit');
-        // this.__showForm(workoutCoords);
         map.style.zIndex = 0;
 
-        //find another solution for it
+
         e = '';
       },
       { once: true }
@@ -722,213 +703,6 @@ class App {
   }
 }
 
-//Acess to app and reset method for removing all the activities
-//app.reset();
+
 const app = new App();
 
-//how to improve the application
-// ability to edit a workout
-//ability to delete a workout
-//ability to delete all workouts
-
-//ability to sort workouts by a certian field
-// re-build running and cycling objects coming from local storage
-//another nice touch that you could use to this application is to create more realistic error messages and confirmation messages
-
-//
-//very hard
-//ability to position the map to show all workouts
-//so lets say that you went to a different country and did some workouts
-//and so your workous are all over the map and so therefore it would be nice to have a button which shows all the workouts on the map at once
-
-//ability to draw lines and shapes instead of just points
-
-//fix problem
-//when i click cancel after edit the location of the marker and after click on the ok and cancel the operatoion
-
-//trying
-// approveEditMessage(e) {
-//   //prettier-ignore
-//   document.querySelector(".approve-edit-message").classList.add("show-message-edit");
-
-//   document.querySelector('.edit-ok').addEventListener('click', () => {
-//     this.#map.on('click', () => {
-//       document
-//         .querySelector('.approve-edit-message')
-//         .classList.remove('show-message-edit');
-//     });
-//   });
-
-//   document.querySelector('.edit-cancel').addEventListener('click', () => {
-//     document
-//       .querySelector('.approve-edit-message')
-//       .classList.remove('show-message-edit');
-//   });
-
-// }
-// let lastWorkoutCoords = workout.coords;
-
-// this.changeMarkerPlace(workout, lastWorkoutCoords, coords);
-
-// this.#workouts.map(workout => {
-//   if (workout.coords === lastWorkoutCoords) {
-//     workout.coords = coords;
-
-//     return workout;
-//   } else {
-//     return workout;
-//   }
-// });
-//fix the editing if i dont fill all the inputs so it will remove the input and i can get it back by clicking the submit
-//problem
-//work only once on every marker so if i change location for marker once it wont work more
-//so meaning that even when i will change the workout edit, it will still be only once for every marker
-//meaning if i change location for marker once, and do submit , i cant change this workout marker location anymore
-//first fix the problem on submit that wont remove the marker workout that i have changed in the fisst run
-
-//to fix the problem i need to find way to combine the old one with the new one
-//so it will update it
-
-// first try
-// const ArrayDataWorkout = this.#markerArray.filter(
-//   (thing, index, self) =>
-//     index === self.findIndex(t => t._latlng === thing._latlng)
-// );
-
-//first example
-// if (this.#updatedMarkerEdit !== undefined) {
-//   this.#updatedMarkerEdit.forEach(marker => {
-//     // console.log(marker);
-//     // const newFilter = this.#markerArray.filter(
-//     //   marker2 => marker2._latlng === marker._latlng
-//     // );
-//     const newFilter = this.#markerArray.map(marker2 => {
-//       if (marker2._latlng === marker._latlng) {
-//         console.log(marker2);
-//       }
-//     });
-//     // const notNewFilter = this.#markerArray.filter(
-//     //   marker2 => marker2._latlng !== marker._latlng
-//     // );
-//     // console.log(notNewFilter);
-//     // console.log(newFilter);
-//     // newFilter.map(marker => {
-//     //   const condition = marker._popup._container.className.includes(
-//     //     workout.type
-//     //   );
-//     //   console.log(marker._popup._container.className);
-//     // });
-//   });
-// }
-//second exapme
-// if (this.#updatedMarkerEdit !== undefined) {
-//   const newArray = this.#markerArray
-//     .map(marker => {
-//       return this.#updatedMarkerEdit.map(marker2 => {
-//         if (
-//           marker2._latlng.lat === marker._latlng.lat &&
-//           marker2._latlng.lng === marker._latlng.lng
-//         ) {
-//           const condition = marker._popup._container.className.includes(
-//             workout.type
-//           );
-//           if (condition) {
-//             return marker;
-//           }
-//         } else {
-//           return marker;
-//         }
-//       });
-//     })
-//     .filter(marker => marker !== undefined)
-//     .flat(1);
-//
-//   this.#markerArray = newArray;
-// }
-
-// clearLayers() remove all the layers
-
-// const uniquePersons = this.#markerArray.filter(
-//   (m, index, ms) => getFirstIndex(ms, m) === index);
-
-// function getFirstIndex(arr, value) {
-//   return arr.findIndex(
-//     (a) => a._latlng === value._latlng);
-// }
-// console.log(uniquePersons);
-// const unquieArr = [
-//   ...new Set(this.#dataWorkouts.map(marker => marker.latlng)),
-// ];
-//render workout on list
-// const unquieArr = [
-//   ...new Set(this.#markerArray.map(marker => marker._latlng)),
-// ];
-// L.marker([lat, lng])
-
-// if (this.#updatedMarkerEdit !== undefined) {
-//   this.#updatedMarkerEdit.map(marker => {
-//     workout.coords[0] = marker._latlng.lat;
-//     workout.coords[1] = marker._latlng.lng;
-//     console.log(this.#dataWorkouts);
-//   });
-//   this.#updatedMarkerEdit = undefined;
-// }
-// if (this.#updatedMarkerEdit !== undefined) {
-//   const newArray = this.#markerArray
-//     .map((marker, idx) => {
-//       this.#updatedMarkerEdit.map(marker2 => {
-//         if (
-//           marker2._latlng.lat === marker._latlng.lat &&
-//           marker2._latlng.lng === marker._latlng.lng
-//         ) {
-//           if (idx === idxUnquie) {
-//             return;
-//           }
-//         } else {
-//           return marker;
-//         }
-//       });
-//     })
-//     .filter(marker => marker != undefined);
-// }
-// const set = new Set();
-// const unique = this.#markerArray.filter(item => {
-//   const alreadyHas = set.has(item._latlng);
-//   set.add(item._latlng);
-//   return !alreadyHas;
-// });
-// const set = new Set();
-// const unique = this.#markerArray.filter(item => {
-//   const alreadyHas = set.has(item._latlng);
-//   set.add(item._latlng);
-//   return !alreadyHas;
-// });
-// //remove the idx from the #this.makerArray
-// console.log(this.#markerArray);
-// const idxUnquie = this.findMarkerIdx(unique, this.#updatedMarkerEdit);
-
-// const marker = this.#markerArray.splice(idxUnquie, 1);
-
-// marker.forEach(marker => {
-
-//   this.#map.removeLayer(marker);
-// });
-
-// this.#markerArray = unique;
-
-// this.#markerArray.clearLayers();
-// this.#map.clearLayers()
-
-// const uniqueBarker = marker.filter(
-//   (thing, index, self) =>
-//     index === self.findIndex(t => t.latlng === thing.latlng)
-// );
-
-// console.log(workoutCoords);
-// let lastWorkoutCoords = workout.coords;
-// this.changeMarkerPlace(workout, lastWorkoutCoords, coords);
-// this.#map.off('click');
-//   const typeCondition =
-//   workout.type === 'running' ? workout.cadence : workout.elevationGain;
-// const { duration, distance } = workout;
-// const typeWorkout = workout.type;
